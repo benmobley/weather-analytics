@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_weather_hourly
+    description: "Flatten JSON hourly weather into tidy rows."
+    columns:
+      - name: city_id
+        tests: [not_null]
+      - name: ts_utc
+        tests: [not_null]
+      - name: temp_c
+        tests: [not_null]
+      - name: rh_pct
+        tests: [not_null]
+
+  - name: core_weather_hourly
+    description: "Hourly weather joined with city metadata."
+    columns:
+      - name: city_name
+        tests: [not_null]
+      - name: ts_local
+        tests: [not_null]
+
+  - name: fct_weather_daily
+    description: "Daily aggregates per city."
+    columns:
+      - name: date
+        tests: [not_null]
+      - name: avg_temp_c
+        tests: [not_null]
+      - name: total_precip_mm
+        tests: [not_null]

@@ -27,3 +27,4 @@ create table if not exists raw.weather_hourly (
 insert into core.dim_city (city_name, country, lat, lon)
 values ('Chicago','US',41.8781,-87.6298)
 on conflict do nothing;
+
