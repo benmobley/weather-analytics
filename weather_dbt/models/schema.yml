@@ -1,7 +1,5 @@
-version: 2
-
 models:
-  - name: core_weather_hourly
+  - name: core_weather__hourly
     description: "Hourly weather joined with city metadata."
     columns:
       - name: city_name
@@ -9,7 +7,7 @@ models:
       - name: ts_local
         tests: [not_null]
 
-  - name: fct_weather_daily
+  - name: fct_weather__daily
     description: "Daily aggregates per city."
     columns:
       - name: date
@@ -28,7 +26,7 @@ models:
       - name: parameter
         tests: [not_null]
 
-  - name: mart_city_daily_stats
+  - name: mart_city__daily_stats
     columns:
       - name: city_id
         tests: [not_null]

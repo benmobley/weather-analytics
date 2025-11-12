@@ -16,6 +16,6 @@ select
   min(temperature_c)    as min_temp_c,
   max(temperature_c)    as max_temp_c,
   avg(humidity_pct)     as avg_humidity_pct,
-  sum(precipitation_mm) as total_precipitation_mm
+  sum(precipitation_mm) as total_precip_mm
 from hourly
 group by 1,2

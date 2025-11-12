@@ -6,7 +6,7 @@ select
   c.country,
   c.timezone,
   s.observed_ts_utc,
-  (s.observed_ts_utc at time zone c.timezone) as observed_ts_local,
+  (s.observed_ts_utc at time zone c.timezone) as ts_local,
   s.observed_date,
   s.temperature_c,
   s.humidity_pct,

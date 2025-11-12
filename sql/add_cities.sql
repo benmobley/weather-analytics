@@ -1,21 +1,124 @@
--- Ensure unique constraint exists (safe to run)
-do $$
-begin
-  if not exists (
-    select 1 from pg_constraint
-    where conrelid = 'core.dim_city'::regclass
-      and contype = 'u'
-      and conname = 'uq_city'
-  ) then
-    alter table core.dim_city add constraint uq_city unique (city_name, country);
-  end if;
-end$$;
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conrelid = 'core.dim_city'::regclass
+      AND contype = 'u'
+      AND conname = 'uq_city'
+  ) THEN
+    ALTER TABLE core.dim_city ADD CONSTRAINT uq_city UNIQUE (city_name, country);
+  END IF;
+END$$;
 
--- Add cities (idempotent)
-insert into core.dim_city (city_name, country, lat, lon, timezone, active) values
+-- Add 100+ cities (idempotent)
+INSERT INTO core.dim_city (city_name, country, lat, lon, timezone, active) VALUES
   ('New York','US',40.7128,-74.0060,'America/New_York', true),
   ('Los Angeles','US',34.0522,-118.2437,'America/Los_Angeles', true),
   ('London','GB',51.5074,-0.1278,'Europe/London', true),
   ('Paris','FR',48.8566,2.3522,'Europe/Paris', true),
-  ('Tokyo','JP',35.6762,139.6503,'Asia/Tokyo', true)
-on conflict (city_name, country) do nothing;
+  ('Tokyo','JP',35.6762,139.6503,'Asia/Tokyo', true),
+  ('Chicago','US',41.8781,-87.6298,'America/Chicago', true),
+  ('Berlin','DE',52.5200,13.4050,'Europe/Berlin', true),
+  ('Madrid','ES',40.4168,-3.7038,'Europe/Madrid', true),
+  ('Rome','IT',41.9028,12.4964,'Europe/Rome', true),
+  ('Toronto','CA',43.6511,-79.3830,'America/Toronto', true),
+  ('Vancouver','CA',49.2827,-123.1207,'America/Vancouver', true),
+  ('Sydney','AU',-33.8688,151.2093,'Australia/Sydney', true),
+  ('Melbourne','AU',-37.8136,144.9631,'Australia/Melbourne', true),
+  ('Singapore','SG',1.3521,103.8198,'Asia/Singapore', true),
+  ('Hong Kong','HK',22.3193,114.1694,'Asia/Hong_Kong', true),
+  ('Beijing','CN',39.9042,116.4074,'Asia/Shanghai', true),
+  ('Shanghai','CN',31.2304,121.4737,'Asia/Shanghai', true),
+  ('Seoul','KR',37.5665,126.9780,'Asia/Seoul', true),
+  ('Bangkok','TH',13.7563,100.5018,'Asia/Bangkok', true),
+  ('Mumbai','IN',19.0760,72.8777,'Asia/Kolkata', true),
+  ('Delhi','IN',28.6139,77.2090,'Asia/Kolkata', true),
+  ('Dubai','AE',25.276987,55.296249,'Asia/Dubai', true),
+  ('Istanbul','TR',41.0082,28.9784,'Europe/Istanbul', true),
+  ('Moscow','RU',55.7558,37.6173,'Europe/Moscow', true),
+  ('Kyiv','UA',50.4501,30.5234,'Europe/Kyiv', true),
+  ('Warsaw','PL',52.2297,21.0122,'Europe/Warsaw', true),
+  ('Amsterdam','NL',52.3676,4.9041,'Europe/Amsterdam', true),
+  ('Copenhagen','DK',55.6761,12.5683,'Europe/Copenhagen', true),
+  ('Stockholm','SE',59.3293,18.0686,'Europe/Stockholm', true),
+  ('Oslo','NO',59.9139,10.7522,'Europe/Oslo', true),
+  ('Helsinki','FI',60.1699,24.9384,'Europe/Helsinki', true),
+  ('Reykjavik','IS',64.1466,-21.9426,'Atlantic/Reykjavik', true),
+  ('Dublin','IE',53.3498,-6.2603,'Europe/Dublin', true),
+  ('Lisbon','PT',38.7223,-9.1393,'Europe/Lisbon', true),
+  ('Brussels','BE',50.8503,4.3517,'Europe/Brussels', true),
+  ('Zurich','CH',47.3769,8.5417,'Europe/Zurich', true),
+  ('Vienna','AT',48.2082,16.3738,'Europe/Vienna', true),
+  ('Budapest','HU',47.4979,19.0402,'Europe/Budapest', true),
+  ('Prague','CZ',50.0755,14.4378,'Europe/Prague', true),
+  ('Athens','GR',37.9838,23.7275,'Europe/Athens', true),
+  ('Cairo','EG',30.0444,31.2357,'Africa/Cairo', true),
+  ('Johannesburg','ZA',-26.2041,28.0473,'Africa/Johannesburg', true),
+  ('Nairobi','KE',-1.2921,36.8219,'Africa/Nairobi', true),
+  ('Lagos','NG',6.5244,3.3792,'Africa/Lagos', true),
+  ('Casablanca','MA',33.5731,-7.5898,'Africa/Casablanca', true),
+  ('Accra','GH',5.6037,-0.1870,'Africa/Accra', true),
+  ('Addis Ababa','ET',9.1450,40.4897,'Africa/Addis_Ababa', true),
+  ('Cape Town','ZA',-33.9249,18.4241,'Africa/Johannesburg', true),
+  ('Buenos Aires','AR',-34.6037,-58.3816,'America/Argentina/Buenos_Aires', true),
+  ('Santiago','CL',-33.4489,-70.6693,'America/Santiago', true),
+  ('São Paulo','BR',-23.5505,-46.6333,'America/Sao_Paulo', true),
+  ('Rio de Janeiro','BR',-22.9068,-43.1729,'America/Sao_Paulo', true),
+  ('Bogotá','CO',4.7110,-74.0721,'America/Bogota', true),
+  ('Lima','PE',-12.0464,-77.0428,'America/Lima', true),
+  ('Caracas','VE',10.4806,-66.9036,'America/Caracas', true),
+  ('Mexico City','MX',19.4326,-99.1332,'America/Mexico_City', true),
+  ('Guadalajara','MX',20.6597,-103.3496,'America/Mexico_City', true),
+  ('San Francisco','US',37.7749,-122.4194,'America/Los_Angeles', true),
+  ('Seattle','US',47.6062,-122.3321,'America/Los_Angeles', true),
+  ('Boston','US',42.3601,-71.0589,'America/New_York', true),
+  ('Miami','US',25.7617,-80.1918,'America/New_York', true),
+  ('Dallas','US',32.7767,-96.7970,'America/Chicago', true),
+  ('Houston','US',29.7604,-95.3698,'America/Chicago', true),
+  ('Atlanta','US',33.7490,-84.3880,'America/New_York', true),
+  ('Denver','US',39.7392,-104.9903,'America/Denver', true),
+  ('Phoenix','US',33.4484,-112.0740,'America/Phoenix', true),
+  ('San Diego','US',32.7157,-117.1611,'America/Los_Angeles', true),
+  ('Portland','US',45.5152,-122.6784,'America/Los_Angeles', true),
+  ('Minneapolis','US',44.9778,-93.2650,'America/Chicago', true),
+  ('Detroit','US',42.3314,-83.0458,'America/Detroit', true),
+  ('Philadelphia','US',39.9526,-75.1652,'America/New_York', true),
+  ('Montreal','CA',45.5017,-73.5673,'America/Toronto', true),
+  ('Ottawa','CA',45.4215,-75.6992,'America/Toronto', true),
+  ('Calgary','CA',51.0447,-114.0719,'America/Edmonton', true),
+  ('Edmonton','CA',53.5461,-113.4938,'America/Edmonton', true),
+  ('Auckland','NZ',-36.8485,174.7633,'Pacific/Auckland', true),
+  ('Wellington','NZ',-41.2865,174.7762,'Pacific/Auckland', true),
+  ('Honolulu','US',21.3069,-157.8583,'Pacific/Honolulu', true),
+  ('Honolulu','US',21.3069,-157.8583,'Pacific/Honolulu', true),
+  ('Doha','QA',25.2854,51.5310,'Asia/Qatar', true),
+  ('Riyadh','SA',24.7136,46.6753,'Asia/Riyadh', true),
+  ('Tel Aviv','IL',32.0853,34.7818,'Asia/Jerusalem', true),
+  ('Jerusalem','IL',31.7683,35.2137,'Asia/Jerusalem', true),
+  ('Karachi','PK',24.8607,67.0011,'Asia/Karachi', true),
+  ('Lahore','PK',31.5497,74.3436,'Asia/Karachi', true),
+  ('Kuala Lumpur','MY',3.1390,101.6869,'Asia/Kuala_Lumpur', true),
+  ('Jakarta','ID',-6.2088,106.8456,'Asia/Jakarta', true),
+  ('Manila','PH',14.5995,120.9842,'Asia/Manila', true),
+  ('Taipei','TW',25.0330,121.5654,'Asia/Taipei', true),
+  ('Hanoi','VN',21.0278,105.8342,'Asia/Bangkok', true),
+  ('Ho Chi Minh City','VN',10.7769,106.7009,'Asia/Ho_Chi_Minh', true),
+  ('Kolkata','IN',22.5726,88.3639,'Asia/Kolkata', true),
+  ('Bangalore','IN',12.9716,77.5946,'Asia/Kolkata', true),
+  ('Chennai','IN',13.0827,80.2707,'Asia/Kolkata', true),
+  ('Kathmandu','NP',27.7172,85.3240,'Asia/Kathmandu', true),
+  ('Tehran','IR',35.6892,51.3890,'Asia/Tehran', true),
+  ('Baghdad','IQ',33.3152,44.3661,'Asia/Baghdad', true),
+  ('Amman','JO',31.9454,35.9284,'Asia/Amman', true),
+  ('Beirut','LB',33.8938,35.5018,'Asia/Beirut', true),
+  ('Doha','QA',25.2854,51.5310,'Asia/Qatar', true),
+  ('Muscat','OM',23.5880,58.3829,'Asia/Muscat', true),
+  ('Kuwait City','KW',29.3759,47.9774,'Asia/Kuwait', true),
+  ('Havana','CU',23.1136,-82.3666,'America/Havana', true),
+  ('San Juan','PR',18.4655,-66.1057,'America/Puerto_Rico', true),
+  ('Panama City','PA',8.9824,-79.5199,'America/Panama', true),
+  ('San José','CR',9.9281,-84.0907,'America/Costa_Rica', true),
+  ('Guatemala City','GT',14.6349,-90.5069,'America/Guatemala', true),
+  ('Kingston','JM',18.0179,-76.8099,'America/Jamaica', true),
+  ('Reykjavik','IS',64.1466,-21.9426,'Atlantic/Reykjavik', true)
+ON CONFLICT (city_name, country) DO NOTHING;
