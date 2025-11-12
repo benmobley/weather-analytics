@@ -1,0 +1,26 @@
+[0m19:43:25  Running with dbt=1.10.13
+[0m19:43:25  Registered adapter: postgres=1.9.1
+[0m19:43:25  Found 6 models, 7 data tests, 3 sources, 450 macros
+[0m19:43:25  
+[0m19:43:25  Concurrency: 4 threads (target='dev')
+[0m19:43:25  
+[0m19:43:25  1 of 7 START test not_null_stg_aq__measurements_city_id ........................ [RUN]
+[0m19:43:25  2 of 7 START test not_null_stg_aq__measurements_date ........................... [RUN]
+[0m19:43:25  3 of 7 START test not_null_stg_aq__measurements_parameter ...................... [RUN]
+[0m19:43:25  4 of 7 START test not_null_stg_weather__hourly_city_id ......................... [RUN]
+[0m19:43:25  2 of 7 PASS not_null_stg_aq__measurements_date ................................. [[32mPASS[0m in 0.03s]
+[0m19:43:25  1 of 7 PASS not_null_stg_aq__measurements_city_id .............................. [[32mPASS[0m in 0.04s]
+[0m19:43:25  5 of 7 START test not_null_stg_weather__hourly_observed_ts_utc ................. [RUN]
+[0m19:43:25  3 of 7 PASS not_null_stg_aq__measurements_parameter ............................ [[32mPASS[0m in 0.04s]
+[0m19:43:25  4 of 7 PASS not_null_stg_weather__hourly_city_id ............................... [[32mPASS[0m in 0.04s]
+[0m19:43:25  6 of 7 START test not_null_stg_weather__observations_city_id ................... [RUN]
+[0m19:43:25  7 of 7 START test not_null_stg_weather__observations_date ...................... [RUN]
+[0m19:43:25  6 of 7 PASS not_null_stg_weather__observations_city_id ......................... [[32mPASS[0m in 0.02s]
+[0m19:43:25  5 of 7 PASS not_null_stg_weather__hourly_observed_ts_utc ....................... [[32mPASS[0m in 0.03s]
+[0m19:43:25  7 of 7 PASS not_null_stg_weather__observations_date ............................ [[32mPASS[0m in 0.03s]
+[0m19:43:25  
+[0m19:43:25  Finished running 7 data tests in 0 hours 0 minutes and 0.18 seconds (0.18s).
+[0m19:43:25  
+[0m19:43:25  [32mCompleted successfully[0m
+[0m19:43:25  
+[0m19:43:25  Done. PASS=7 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=7

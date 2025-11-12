@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: core
+    schema: core
+    tables:
+      - name: dim_city
+
+  - name: raw
+    schema: raw
+    tables:
+      - name: weather_hourly
+      - name: air_quality
